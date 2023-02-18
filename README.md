@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # Glados-auto-checkin-main
 =======
-#### 脚本功能：
+#### 脚本功能：(此脚本由别人制作，因某些原因被下架，这里再重新上传一份可用的)
 
 1、通过Github Action自动定时运行[checkin.py](https://github.com/hbstarjason/glados-checkin/blob/master/checkin.py)脚本。
 
