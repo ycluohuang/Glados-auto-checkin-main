@@ -1,0 +1,43 @@
+name: glados-auto-checkin
+
+on:
+  workflow_dispatch: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron:  0 19 * * * 
+      # 
+      # https://tool.lu/crontab/
+      # https://datetime360.com/cn/utc-cst-china-time/
+  #watch:
+  #    types: started   
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    #if: github.event.repository.owner.id == github.event.sender.id
+    # https://p3terx.com/archives/github-actions-manual-trigger.html
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Python
+      run: |
+        sudo apt update && \
+        sudo apt install python3
+      
+    - name: requirements
+      run: |
+        pip3 install -r requirements.txt
+       # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
+    - name: Checkin
+      run: |
+        python3 checkin.py 
+      env: 
+        SERVE: ${{ secrets.SERVE }}
+        SCKEY: ${{ secrets.SCKEY }}
+        COOKIES: ${{ secrets.COOKIES }}
+    - uses: gautamkrishnar/keepalive-workflow@v1 # using the workflow with default settings
+
